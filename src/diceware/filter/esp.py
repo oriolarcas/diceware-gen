@@ -22,6 +22,28 @@ import re
 from time import time
 from difflib import get_close_matches
 
+class IndexGen:
+    def __init__(self, sym, digits):
+        self.sym = sym
+        self.counters = [0] * digits
+    
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self.counters is None:
+            raise StopIteration
+
+        current = "".join([self.sym[i] for i in reversed(self.counters)])
+        for i in range(len(self.counters)):
+            if self.counters[i] < len(self.sym) - 1:
+                self.counters[i] += 1
+                break
+            self.counters[i] = 0
+            if i == len(self.counters) - 1:
+                self.counters = None
+        return current
+
 def translate_word(w, subs):
     for newc, oldcs in subs.items():
         for oldc in oldcs:
@@ -48,7 +70,6 @@ def filter_words_esp():
     last_time = time()
     last_index = 1
     
-    matches = set()
     with open(sys.argv[1]) as f:
         spaces = re.compile(r'\s+')
         accepted_words = []
@@ -63,7 +84,6 @@ def filter_words_esp():
             if len(w) <= 3:
                 continue
             if w in black_list:
-                matches.add(w_original)
                 continue
             if get_close_matches(w, accepted_words, 1, 0.7):
                 continue
@@ -79,8 +99,11 @@ def filter_words_esp():
                 break
 
         accepted_words.sort()
+        indexgen = IndexGen([str(i + 1) for i in range(6)], 4)
+        final_list = []
         for w in accepted_words:
-            print(w.encode("utf-8"))
+            final_list.append("%s %s" % (indexgen.next(), w.encode("utf-8")))
+        sys.stdout.write("\n".join(final_list))
 
 if __name__ == '__main__':
     filter_words_esp()

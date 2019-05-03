@@ -23,10 +23,10 @@ import random
 words = []
 with open(sys.argv[1]) as f:
     for l in f.readlines():
-        w = l.strip()
+        index, w = l.strip().split(" ")
         if not w:
             raise Exception("Empty line in diceware list")
-        words.append(l.strip())
+        words.append(w)
 
 rounds = -1
 for i in range(10):
