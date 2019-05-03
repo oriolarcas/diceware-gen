@@ -1,0 +1,10 @@
+*.pyc
+
+# IDEs
+.project
+.pydevproject
+.settings/
+
+# Languages
+lang/cat.txt
+lang/esp.txt
