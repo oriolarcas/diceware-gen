@@ -67,6 +67,8 @@ cuando
 ya
 sólo
 muy
+aquí
+allí
 # Acrónimos
 psoe
 xviii
@@ -79,6 +81,7 @@ aguirre
 agustín
 alberto
 alfonso
+alonso
 alvarez
 álvarez
 andrés
@@ -100,6 +103,7 @@ enrique
 federico
 felipe
 félix
+ford
 george
 gómez
 gonzález
@@ -113,10 +117,12 @@ hernández
 inés
 jacques
 james
+jean
 jesús
 jiménez
 joaquín
 josé
+josep
 juan
 julia
 julián
@@ -124,6 +130,7 @@ lópez
 lorenzo
 luis
 luisa
+mariana
 mariano
 martín
 marx
@@ -145,14 +152,10 @@ rodolfo
 rodríguez
 roldán
 rubén
+smith
 vázquez
 velázquez
+walter
 william
-alonso
-jean
-josep
-mariana
-smith
-ford
 # Extranjeras
 windows
