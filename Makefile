@@ -1,6 +1,6 @@
 # Add new languages to this list:
 
-LANGS = esp
+LANGS = cat esp
 
 # New languages should have three files in the lang/ directory:
 # - lang/xxx_original.txt: the list of words, by frequency
@@ -21,13 +21,13 @@ LANG_FILES = $(addprefix lang/,$(addsuffix .txt,$(LANGS)))
 .SECONDARY: $(LANG_FILES)
 
 .PHONY: all
-all: esp
+all: cat
 
 %: lang/%.txt
 	@cd src && python -m diceware ../$<
 
 lang/%.txt:
-	cd src && python -m diceware.filter.$(basename $(notdir $@)) \
+	@cd src && python -m diceware.filter.$(basename $(notdir $@)) \
 		../$(@:%.txt=%_original.txt) \
 		../$(@:%.txt=%_banned.txt) \
 		../$(@:%.txt=%_symbols.txt) > ../$@
