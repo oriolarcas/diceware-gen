@@ -22,19 +22,25 @@ import re
 from generator import DicewareGenerator
 
 class CatalanGenerator(DicewareGenerator):
+    def __init__(self):
+        super().__init__(
+            self._replace_file_in_path(__file__, "words.txt"),
+            self._replace_file_in_path(__file__, "symbols.yaml"),
+            self._replace_file_in_path(__file__, "banned.txt")
+        )
 
-    def read_words(self, filename):
+    def read_words(self):
         spaces = re.compile(r'\s+')
-        with open(filename, "r") as f:
+        with open(self.words_file, "r") as f:
             for l in f.readlines():
                 _, w = spaces.split(l.strip())
-                
+
                 w = w.decode("utf-8")
-                
+
                 # Filter Catalan midpoint
                 if u"\u00b7" in w:
                     continue
-                
+
                 yield w
 
 if __name__ == '__main__':
