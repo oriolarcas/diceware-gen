@@ -19,14 +19,15 @@ along with DicewareGen.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
 
-from generator import DicewareGenerator
+from diceware.generator import DicewareGenerator
 
 class CatalanGenerator(DicewareGenerator):
     def __init__(self):
         super().__init__(
-            self._replace_file_in_path(__file__, "words.txt"),
-            self._replace_file_in_path(__file__, "symbols.yaml"),
-            self._replace_file_in_path(__file__, "banned.txt")
+            phrase_size=4,
+            words_file=self._replace_file_in_path(__file__, "words.txt"),
+            symbols=self._read_json(self._replace_file_in_path(__file__, "symbols.json")),
+            banned_path=self._replace_file_in_path(__file__, "banned.txt")
         )
 
     def read_words(self):
@@ -35,13 +36,8 @@ class CatalanGenerator(DicewareGenerator):
             for l in f.readlines():
                 _, w = spaces.split(l.strip())
 
-                w = w.decode("utf-8")
-
                 # Filter Catalan midpoint
                 if u"\u00b7" in w:
                     continue
 
                 yield w
-
-if __name__ == '__main__':
-    CatalanGenerator().gen_diceware_list()

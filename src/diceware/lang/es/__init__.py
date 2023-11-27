@@ -19,18 +19,25 @@ along with DicewareGen.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
 
-from generator import DicewareGenerator
+from diceware.generator import DicewareGenerator
 
 class SpanishGenerator(DicewareGenerator):
+    def __init__(self):
+        super().__init__(
+            phrase_size=4,
+            words_file=self._replace_file_in_path(__file__, "words.txt"),
+            symbols=self._read_json(self._replace_file_in_path(__file__, "symbols.json")),
+            banned_path=self._replace_file_in_path(__file__, "banned.txt")
+        )
 
-    def read_words(self, filename):
+    def read_words(self):
         spaces = re.compile(r'\s+')
-        with open(filename, "r") as f:
+        with open(self.words_file, "r", encoding="iso-8859-15") as f:
             for l in f.readlines():
                 spl = spaces.split(l.strip())
                 if len(spl) != 4:
                     continue
-                yield spl[1].decode("iso-8859-15")
+                yield spl[1]
 
 if __name__ == '__main__':
     SpanishGenerator().gen_diceware_list()

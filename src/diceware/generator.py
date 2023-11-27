@@ -20,6 +20,8 @@ along with DicewareGen.  If not, see <https://www.gnu.org/licenses/>.
 from time import time
 from difflib import get_close_matches
 from os import path
+import json
+import sys
 
 class IndexGen:
     def __init__(self, sym, digits):
@@ -44,26 +46,31 @@ class IndexGen:
         return current
 
 class DicewareGenerator:
-    def __init__(self, words_file, symbols_file=None, banned_file=None):
-        self.words_file = words_file
-        self.translation = {}
-        with open(symbols_file) as f:
-            for l in f.readlines():
-                cs = l.decode("utf-8").strip().split(" ")
-                self.translation[cs[0]] = cs[1:]
+    def __init__(self, phrase_size:int, words_file:str, symbols:dict[str, str]=None, banned_path:str=None):
+        self.phrase_size = phrase_size
+        self.words_file : str = words_file
+        self.translation : dict[str, str] = {}
+        if symbols is not None:
+            self.translation = symbols
 
         self.banned_list = set()
-        with open(banned_file) as f:
-            for l in f.readlines():
-                w = l.strip()
-                if len(w) == 0 or w[0] == "#":
-                    continue
-                w = self.translate_word(w.decode("utf-8"), self.translation)
-                self.banned_list.add(w)
+        if banned_path is not None:
+            with open(banned_path) as banned_file:
+                for l in banned_file.readlines():
+                    w = l.strip()
+                    if len(w) == 0 or w.startswith("#"):
+                        continue
+                    w = self.translate_word(w, self.translation)
+                    self.banned_list.add(w)
 
     @staticmethod
     def _replace_file_in_path(file_path, new_file):
         return path.join(path.dirname(file_path), new_file)
+
+    @staticmethod
+    def _read_json(json_path):
+        with open(json_path, "r") as json_file:
+            return json.load(json_file)
 
     def translate_word(self, w, subs):
         for newc, oldcs in subs.items():
@@ -75,6 +82,8 @@ class DicewareGenerator:
         raise NotImplementedError
 
     def gen_diceware_list(self):
+        total_words = 6**self.phrase_size
+
         last_time = time()
         last_index = 1
 
@@ -91,18 +100,30 @@ class DicewareGenerator:
                 continue
             accepted_words.append(w)
             curr_time = time()
-            sys.stderr.write("%d -> %d (%5d words/sec): %s\n" % (index,
+            sys.stderr.write("%d -> %d (%3d%%, %5d words/sec): %s\n" % (index,
                                                                  len(accepted_words),
+                                                                 len(accepted_words) * 100. / total_words,
                                                                  (index - last_index) / (curr_time - last_time),
-                                                                 w.encode("utf-8")))
+                                                                 w))
             last_time = curr_time
             last_index = index
-            if len(accepted_words) == 6**4:
+            if len(accepted_words) == total_words:
                 break
 
         accepted_words.sort()
-        indexgen = IndexGen([str(i + 1) for i in range(6)], 4)
+        indexgen = IndexGen(list(map(str, range(1, 7))), self.phrase_size)
         final_list = []
         for w in accepted_words:
-            final_list.append("%s %s" % (indexgen.next(), w.encode("utf-8")))
+            final_list.append("%s %s" % (indexgen.next(), w))
         sys.stdout.write("\n".join(final_list))
+
+if __name__ == '__main__':
+    lang = sys.argv[1]
+    if lang == "ca":
+        from diceware.lang.ca import CatalanGenerator
+        CatalanGenerator().gen_diceware_list()
+    elif lang == "es":
+        from diceware.lang.es import SpanishGenerator
+        SpanishGenerator().gen_diceware_list()
+    else:
+        raise ValueError("Unknown language")

@@ -1,0 +1,38 @@
+# Articles, pronoms
+aixo
+aquell
+# Números
+cinquanta
+viii
+xiii
+xvii
+xviii
+# Noms, cognoms
+alfons
+antonio
+arab
+arabs
+arthur
+bach
+bernat
+borbo
+brasiler
+breto
+britanic
+britanics
+buenos
+catalanes
+charles
+claudi
+daniel
+david
+felip
+stalin
+strunz
+virginia
+walter
+# Barbarismes
+city
+college
+style
+windows
