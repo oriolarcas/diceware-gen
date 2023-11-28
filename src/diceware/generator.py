@@ -87,7 +87,8 @@ class DicewareGenerator:
         last_time = time()
         last_index = 1
 
-        accepted_words = []
+        accepted_keys = []
+        accepted_words = {}
         index = 0
         for w_original in self.read_words():
             index += 1
@@ -96,25 +97,25 @@ class DicewareGenerator:
                 continue
             if w in self.banned_list:
                 continue
-            if get_close_matches(w, accepted_words, 1, 0.7):
+            if get_close_matches(w, accepted_keys, 1, 0.7):
                 continue
-            accepted_words.append(w)
+            accepted_keys.append(w)
+            accepted_words[w] = w_original
             curr_time = time()
             sys.stderr.write("%d -> %d (%3d%%, %5d words/sec): %s\n" % (index,
-                                                                 len(accepted_words),
-                                                                 len(accepted_words) * 100. / total_words,
+                                                                 len(accepted_keys),
+                                                                 len(accepted_keys) * 100. / total_words,
                                                                  (index - last_index) / (curr_time - last_time),
                                                                  w))
             last_time = curr_time
             last_index = index
-            if len(accepted_words) == total_words:
+            if len(accepted_keys) == total_words:
                 break
 
-        accepted_words.sort()
         indexgen = IndexGen(list(map(str, range(1, 7))), self.phrase_size)
         final_list = []
-        for w in accepted_words:
-            final_list.append("%s %s" % (indexgen.next(), w))
+        for k in sorted(accepted_words.keys()):
+            final_list.append("%s\t%s" % (indexgen.next(), accepted_words[k]))
         sys.stdout.write("\n".join(final_list))
 
 if __name__ == '__main__':
