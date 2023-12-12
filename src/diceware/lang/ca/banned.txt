@@ -1,6 +1,7 @@
 # Articles, pronoms
 aixo
 aquell
+ells
 # Preposicions
 a
 amb
@@ -13,9 +14,11 @@ davall
 de
 deçà
 dellà
+dels
 des
 devers
 devora
+dins
 dintre
 durant
 en
@@ -26,8 +29,10 @@ fins
 llevat
 malgrat
 mitjançant
+pels
 per
 pro
+prop
 salvant
 salvat
 segons
@@ -44,7 +49,6 @@ perquè
 també
 tampoc
 # Números, unitats
-cinquanta
 msnm
 viii
 xiii
@@ -55,11 +59,12 @@ adolf
 alexandre
 alfons
 alonso
-anna
 anglès
+anna
 antonio
 arab
 arabs
+arnau
 arthur
 bach
 baptista
@@ -74,20 +79,24 @@ breto
 britanic
 britanics
 buenos
+carolina
 catalanes
 charles
 claudi
 cristianisme
+croats
 daniel
 david
 díaz
 diego
 disney
+egipci
 elisabet
+enric
 espanyol
-espanyols
 espanyola
 espanyoles
+espanyols
 estatunidenc
 estatunidenca
 felip
@@ -95,8 +104,8 @@ feliu
 fernando
 ferran
 francès
-francesos
 franceses
+francesos
 francisco
 franquista
 frederic
@@ -106,20 +115,23 @@ george
 giovanni
 gómez
 grec
-grega
 grecs
+grega
 gregues
 guillem
 harry
 henry
 hitler
 hongarès
+ibrahim
 indis
+isaac
 islam
 islàmic
 ivan
 jack
 jackson
+jacob
 james
 japonesa
 japonesos
@@ -138,10 +150,15 @@ jueu
 jueus
 jueva
 karl
+kong
+león
+lewis
 lópez
+martin
+martínez
 michael
-miquel
 miguel
+miquel
 mozart
 muhammad
 musulmana
@@ -150,7 +167,11 @@ nazi
 nazis
 neerlandès
 nicolau
+otto
 pablo
+pérez
+pierre
+pilar
 pompeu
 psoe
 ptolemeu
@@ -158,6 +179,8 @@ pujol
 ramon
 ricard
 robert
+rodríguez
+roger
 ruiz
 samuel
 santiago
@@ -167,20 +190,27 @@ soviètics
 stalin
 strunz
 tomàs
+turc
 turcs
 txeca
 uefa
+vicenç
 virginia
 wagner
 walter
 wilhelm
 williams
 wilson
-# Barbarismes
+xinès
+# Barbarismes i acrònims
+apple
 city
 college
-microsoft
+google
+http
+london
 metal
+microsoft
 nintendo
 open
 otomà
@@ -188,9 +218,12 @@ otomans
 papa
 puerto
 rico
+show
 style
-windows
+tour
+unesco
 white
+windows
 york
 # Massa complexes
 azerbaidjan
